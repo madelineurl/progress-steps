@@ -1,15 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500&display=swap');
+
+/* 'custom properties' AKA CSS variables
+--> require a scope */
+:root {
+  --line-border-fill: #3498db;
+  --line-border-empty: #e0e0e0;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  background-color: #f6f7fb;
+  font-family: 'Raleway', sans-serif;
   margin: 0;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
   /* you can still use justify content if the flex-direction is column!
-  but it doesn't do anything */
+  but it doesn't do anything unless the height property is set */
   height: 100vh;
+  overflow: hidden;
+  /* don't scroll by default */
   align-items: center;
+}
+
+.container {
+  text-align: center;
+}
+
+.progress-container {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 30px;
+  max-width: 100%;
+  width: 350px;
+}
+
+.progress-container::before {
+  /* when you use the before pseudoselector, you must set the
+  content property equal to something (empty string) */
+  content: '';
+  background-color: #e0e0e0;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  /* before this transform, the top of the line is centered
+  to the middle of the line, rather than the middle being
+  centered on the middle */
+  transform: translateY(-50%);
+  height: 4px;
+  width: 100%;
+  z-index: -1;
+}
+
+.progress {
+  background-color: var(--line-border-fill);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  /* before this transform, the top of the line is centered
+  to the middle of the line, rather than the middle being
+  centered on the middle */
+  transform: translateY(-50%);
+  height: 4px;
+  width: 0%;
+  z-index: -1;
+  transition: .4s ease;
+}
+
+.circle {
+  background-color: #fff;
+  color: #999;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--line-border-empty);
+  transition: .4s ease;
+}
+
+.circle.active {
+  border-color: var(--line-border-fill);
+}
+
+.btn {
+  background-color: var(--line-border-fill);
+  color: white;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 8px 30px;
+  /* 8px top and bottom, 30px left and right */
+  margin: 5px;
+  font-size: 14px;
+}
+
+/* scaling effect on the active class */
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* get rid of default focus outline */
+.btn:focus {
+  outline: 0;
+}
+
+.btn:disabled {
+  background-color: var(--line-border-empty);
+  cursor: not-allowed;
 }
